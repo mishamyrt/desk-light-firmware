@@ -1,4 +1,4 @@
-# Desk Light Strip Firmware
+# Desk Light Firmware
 
 Firmware for Arduino Nano which implements smart strip functions controlled via USB. Used to light my desk.
 
