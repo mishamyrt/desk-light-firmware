@@ -29,7 +29,11 @@ void setup() {
 
 void loop() {
   if (Serial.available() > 0) {
-    payload_length = Serial.readBytesUntil(0x256, input_buffer, sizeof(input_buffer) - 1);
+    payload_length = Serial.readBytesUntil(
+      COMMAND_TERMINATOR,
+      input_buffer,
+      sizeof(input_buffer) - 1
+    );
     handle_input(payload_length);
   }
   handle_frame();
