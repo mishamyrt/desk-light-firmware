@@ -4,7 +4,7 @@
 #include "../light/hardware.h"
 #include "../../lightstrip.h"
 
-uint8_t input_buffer[100];
+uint8_t input_buffer[128];
 
 void handle_input(int length) {
   switch (input_buffer[0])
