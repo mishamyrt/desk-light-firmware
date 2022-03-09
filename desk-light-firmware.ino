@@ -4,6 +4,9 @@
 #include "src/effects/handler.h"
 #include "src/light/hardware.h"
 
+#define BOUD_RATE 9600
+#define INPUT_TIMEOUT 1000
+
 int payload_length = 0;
 
 void send(int data) {
@@ -22,7 +25,8 @@ void send_log(int payload) {
 }
 
 void setup() {
-  Serial.begin(9600);
+  Serial.begin(BOUD_RATE);
+  Serial.setTimeout(INPUT_TIMEOUT);
   initialize_hardware();
   send(1);
 }
