@@ -23,19 +23,19 @@ The command and argument list must be followed by the ending number 3054 or `0xB
 
 ### Examples
 
-#### Enable light strip
+Enable light strip.
 
 ```
 0x1 0xBEE
 ```
 
-#### Set brightness to 50%
+Set brightness to 50%.
 
 ```
 0x2 0x80 0xBEE
 ```
 
-#### Set color to red
+Set color to red.
 
 ```
 0x3 0xFF 0x0 0x0 0xBEE
