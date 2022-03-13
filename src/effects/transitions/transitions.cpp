@@ -24,7 +24,3 @@ void step_to_target(uint8_t target, uint8_t *current, int step, bool stop) {
   }
   *current = new_value;
 }
-
-uint8_t calculate_middle_value(uint8_t first, uint8_t second, float ratio) {
-  return (second * ratio) + (first * (1 - ratio));
-}

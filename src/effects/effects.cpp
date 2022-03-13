@@ -1,12 +1,16 @@
+#include <Arduino.h>
 #include "../../lightstrip.h"
 #include "effects.h"
 
 int LED_CENTER = int(LED_COUNT / 2);
-int effect = EFFECT_NONE;
+uint8_t effect = EFFECT_NONE;
 int index;
+int effect_index;
+float progress;
 
-void start_effect(int new_effect) {
+void start_effect(uint8_t new_effect) {
   index = 0;
+  progress = 0;
   effect = new_effect;
 }
 

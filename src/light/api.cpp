@@ -1,7 +1,9 @@
 #include "../effects/transition.h"
+#include "../effects/effects.h"
+#include "../effects/helpers.h"
 #include "hardware.h"
 
-uint8_t color[3];
+rgb_color color;
 
 void apply_power (bool state) {
   if (state) {
@@ -22,6 +24,11 @@ void apply_current_color() {
 
 void apply_color(uint8_t r, uint8_t g, uint8_t b) {
   tween_color(r, g, b);
+}
+
+void apply_ambilight_colors() {
+  progress = 0;
+  effect_index = 0;
 }
 
 // void apply_color_raw(uint8_t r, uint8_t g, uint8_t b) {

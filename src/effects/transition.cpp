@@ -2,15 +2,14 @@
 #include "transitions/transitions.h"
 #include "effects.h"
 #include "../light/api.h"
+#include "helpers.h"
 #include "../../lightstrip.h"
 
-void start_color_transition(uint8_t r, uint8_t g, uint8_t b, int transition) {
+void start_color_transition(uint8_t r, uint8_t g, uint8_t b, uint8_t transition) {
   target_color[0] = r;
   target_color[1] = g;
   target_color[2] = b;
-  start_color[0] = color[0];
-  start_color[1] = color[1];
-  start_color[2] = color[2];
+  copy_colors(start_color, color);
   start_effect(transition);
 }
 
