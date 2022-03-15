@@ -13,17 +13,13 @@ void apply_power (bool state) {
   }
 }
 
-void apply_brightness(uint8_t value) {
-  smooth_brightness(value);
-}
-
 void apply_current_color() {
   fill_leds(color[0], color[1], color[2]);
   apply();
 }
 
-void apply_color(uint8_t r, uint8_t g, uint8_t b) {
-  tween_color(r, g, b);
+void apply_color(uint8_t r, uint8_t g, uint8_t b, uint8_t brightness) {
+  tween_color(r, g, b, brightness);
 }
 
 void apply_ambilight_colors() {

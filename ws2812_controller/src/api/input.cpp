@@ -23,11 +23,8 @@ void handle_input(int length) {
       color[2] = input_buffer[3];
       apply_power(true);
       break;
-    case COMMAND_SET_BRIGHTNESS:
-      apply_brightness(input_buffer[1]);
-      break;
     case COMMAND_SET_COLOR:
-      apply_color(input_buffer[1], input_buffer[2], input_buffer[3]);
+      apply_color(input_buffer[1], input_buffer[2], input_buffer[3], input_buffer[4]);
       break;
     case COMMAND_START_AMBILIGHT:
       parse_ambilight_zones();

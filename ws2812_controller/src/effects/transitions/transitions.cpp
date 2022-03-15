@@ -4,6 +4,7 @@
 uint8_t start_color[3];
 uint8_t target_color[3];
 uint8_t target_brightness;
+uint8_t start_brightness;
 int new_value;
 
 void step_to_target(uint8_t target, uint8_t *current, int step, bool stop) {

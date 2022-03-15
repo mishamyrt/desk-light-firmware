@@ -19,7 +19,12 @@ void set_middle_color(float ratio) {
 void color_tween_transition () {
   index++;
   progress = COLOR_STEP * (float)index;
-  set_middle_color(progress);
+  if (!is_same_color(target_color, color)) {
+    set_middle_color(progress);
+  }
+  if (brightness != target_brightness) {
+    brightness = calculate_middle_value(start_brightness, target_brightness, progress);
+  }
   apply_current_color();
   if (index == COLOR_TWEEN_STEPS) {
     stop_effect();

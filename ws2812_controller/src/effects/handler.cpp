@@ -13,9 +13,6 @@ void handle_frame() {
     case EFFECT_FILL_TO_CENTER:
       color_fill_transition(false);
       break;
-    case EFFECT_SMOOTH_BRIGHTNESS:
-      smooth_brightness_transition();
-      break;
     case EFFECT_COLOR_TWEEN:
       color_tween_transition();
       break;

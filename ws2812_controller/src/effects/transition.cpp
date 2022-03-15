@@ -2,6 +2,7 @@
 #include "transitions/transitions.h"
 #include "effects.h"
 #include "../light/api.h"
+#include "../light/hardware.h"
 #include "helpers.h"
 #include "../../lightstrip.h"
 
@@ -21,11 +22,8 @@ void fill_to_center(uint8_t r, uint8_t g, uint8_t b) {
   start_color_transition(r, g, b, EFFECT_FILL_TO_CENTER);
 }
 
-void tween_color(uint8_t r, uint8_t g, uint8_t b) {
+void tween_color(uint8_t r, uint8_t g, uint8_t b, uint8_t new_brightness) {
+  start_brightness = brightness;
+  target_brightness = new_brightness;
   start_color_transition(r, g, b, EFFECT_COLOR_TWEEN);
-}
-
-void smooth_brightness(uint8_t target) {
-  target_brightness = target;
-  start_effect(EFFECT_SMOOTH_BRIGHTNESS);
 }
