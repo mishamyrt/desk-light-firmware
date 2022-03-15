@@ -18,6 +18,9 @@ void handle_input(int length) {
       apply_power(false);
       break;
     case COMMAND_POWER_ON:
+      color[0] = input_buffer[1];
+      color[1] = input_buffer[2];
+      color[2] = input_buffer[3];
       apply_power(true);
       break;
     case COMMAND_SET_BRIGHTNESS:

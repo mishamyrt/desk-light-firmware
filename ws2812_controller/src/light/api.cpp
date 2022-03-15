@@ -7,7 +7,7 @@ rgb_color color;
 
 void apply_power (bool state) {
   if (state) {
-    fill_from_center(255, 255, 255);
+    fill_from_center(color[0], color[1], color[2]);
   } else {
     fill_to_center(0, 0, 0);
   }
