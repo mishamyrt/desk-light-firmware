@@ -1,1 +1,0 @@
-void animate_ambilight();

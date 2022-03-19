@@ -1,18 +1,22 @@
 .PHONY: compile
 
+# serial=gyverUart
+# GyverCore:avr:nano
+
 DEVICE_PATH = /dev/tty.wchusbserial11440
 OUT_PATH = dist
+SRC_PATH = light_controller
 PROJECT_NAME = DeskLight
-FQBN = arduino:avr:nano:cpu=atmega328old
+FQBN = GyverCore:avr:nano:serial=gyverUart
 
 compile:
-	cd ws2812_controller && \
+	cd $(SRC_PATH) && \
 	arduino-cli compile \
 		--output-dir ../$(OUT_PATH) \
 		--fqbn $(FQBN) \
 		$(PROJECT_NAME)
 flash:
-	cd ws2812_controller && \
+	cd $(SRC_PATH) && \
 	arduino-cli upload -p $(DEVICE_PATH) --fqbn $(FQBN) $(PROJECT_NAME)
 flash-remote:
 	sh -c scripts/flash-remote.sh
