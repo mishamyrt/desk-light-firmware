@@ -5,13 +5,6 @@
 
 #define LED_DT 13
 #define LED_COUNT 120
-#define MAX_ZONES_COUNT 24
-
-typedef struct Zone {
-  uint8_t length;
-  uint8_t start;
-  bool reverse;
-};
 
 class LightController {
   public:
@@ -25,6 +18,5 @@ class LightController {
     uint8_t brightness;
 
   private:
-    CRGB current_color;
     struct CRGB leds[LED_COUNT];
 };
