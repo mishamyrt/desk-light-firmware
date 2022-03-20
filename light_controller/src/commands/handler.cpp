@@ -1,23 +1,18 @@
 #include "Arduino.h"
 #include "commands.h"
 
-void handle_command(uint8_t *command, uint8_t command_length) {
+bool handle_command(uint8_t *command, uint8_t command_length) {
   switch (command[0]) {
     case COMMAND_POWER_ON:
-      handle_power_on(command, command_length);
-      break;
+      return handle_power_on(command, command_length);
     case COMMAND_POWER_OFF:
-      handle_power_off();
-      break;
+      return handle_power_off();
     case COMMAND_SET_COLOR:
-      handle_set_color(command, command_length);
-      break;
+      return handle_set_color(command, command_length);
     case COMMAND_SET_COLOR_ZONES:
-      handle_set_color_zones(command, command_length);
-      break;
+      return handle_set_color_zones(command, command_length);
     case COMMAND_START_EFFECT:
-      handle_start_effect(command, command_length);
-      break;
+      return handle_start_effect(command, command_length);
     default:
       break;
   }

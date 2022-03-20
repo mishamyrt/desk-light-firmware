@@ -4,7 +4,6 @@
 
 const uint8_t MESSAGE_HEADER_FIRST = 0xFE;
 const uint8_t MESSAGE_HEADER_SECOND = 0xEF;
-const uint8_t MESSAGE_HEADER[2] = { 0xFE, 0xEF };
 
 void Dap_::handleInput() {
     if (Serial.available() > 0) {
@@ -40,10 +39,6 @@ bool Dap_::moveToMessage() {
   }
 }
 
-void Dap_::registerHandler(void (*handler)(uint8_t *message, uint8_t message_length)) {
-  message_handler = handler;
-}
-
 void Dap_::sendError() {
   sendCode(CODE_ERROR);
 }
@@ -61,8 +56,7 @@ void Dap_::sendCode(uint8_t code) {
 }
 
 void Dap_::readMessage() {
-  bool messageFound = moveToMessage();
-  if (!messageFound) {
+  if (!moveToMessage()) {
     sendError();
     return;
   }
@@ -87,13 +81,16 @@ void Dap_::readMessage() {
     sendError();
     return;
   }
-  uint8_t check = calculateChecksum();
-  if (check != cur) {
+  if (calculateChecksum() != cur) {
     sendError();
     return;
   }
-  message_handler(message_buffer, message_length);
-  sendSuccess();
+  bool result = message_handler(message_buffer, message_length);
+  if (result) {
+    sendSuccess();
+  } else {
+    sendError();
+  }
   return;
 }
 

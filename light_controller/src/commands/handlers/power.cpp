@@ -2,10 +2,9 @@
 #include "FastLED.h"
 #include "../../light/light.h"
 
-void handle_power_on(uint8_t *message, uint8_t message_length) {
+bool handle_power_on(uint8_t *message, uint8_t message_length) {
   if (message_length < 5) {
-    // TODO: Throw error
-    return;
+    return false;
   }
   Light.setLEDs(CRGB(
     message[1],
@@ -13,6 +12,7 @@ void handle_power_on(uint8_t *message, uint8_t message_length) {
     message[3]
   ));
   Light.apply();
+  return true;
 }
 
 void handle_power_off() {

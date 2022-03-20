@@ -16,13 +16,15 @@ public:
     sendSuccess();
   };
   void handleInput();
-  void registerHandler(void (*handler)(uint8_t *message, uint8_t message_length));
+  void registerHandler(bool (*handler)(uint8_t *message, uint8_t message_length)) {
+    message_handler = handler;
+  };
 
   uint8_t message_buffer[INPUT_BUFFER_SIZE];
   uint8_t message_length;
 
 private:
-  void (*message_handler)(uint8_t *message, uint8_t message_length);
+  bool (*message_handler)(uint8_t *message, uint8_t message_length);
   bool moveToMessage();
   void sendError();
   void sendSuccess();
