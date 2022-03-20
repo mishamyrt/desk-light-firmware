@@ -1,5 +1,6 @@
 #include "Arduino.h"
+#include "FastLED.h"
 
-uint8_t idx = 0;
+float progress = 0;
+uint8_t step = 0;
 uint8_t delta = 0;
-uint8_t progress = 0;

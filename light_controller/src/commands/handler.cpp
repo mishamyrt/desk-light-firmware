@@ -15,6 +15,9 @@ void handle_command(uint8_t *command, uint8_t command_length) {
     case COMMAND_SET_COLOR_ZONES:
       handle_set_color_zones(command, command_length);
       break;
+    case COMMAND_START_EFFECT:
+      handle_start_effect(command, command_length);
+      break;
     default:
       break;
   }

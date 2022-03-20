@@ -1,9 +1,11 @@
 #pragma once
 
 #include "Arduino.h"
+#include "controller.h"
 #include "effects/crossfade.h"
+#include "effects/rainbow.h"
 
-#define EFFECT_NONE 0
-#define EFFECT_CROSSFADE 1
+extern EffectsController Animator;
 
 extern CrossfadeEffect Crossfade;
+extern RainbowEffect Rainbow;

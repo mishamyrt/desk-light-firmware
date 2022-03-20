@@ -1,8 +1,7 @@
 #include "src/dap/dap.h"
 #include "src/light/light.h"
 #include "src/commands/handler.h"
-#include "src/animator/controller.h"
-#include "src/animator/controller.h"
+#include "src/animator/effects.h"
 
 void setup() {
   Dap.connect();

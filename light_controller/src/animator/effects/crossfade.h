@@ -2,12 +2,12 @@
 
 #include "Arduino.h"
 #include "FastLED.h"
-#include "../../light/light.h"
 #include "common.h"
+#include "../../light/light.h"
 
 #define ZONES_MAX_COUNT 24
-#define CROSSFADE_STEPS_COUNT 20
-const float CROSSFADE_STEP = 255 / CROSSFADE_STEPS_COUNT;
+#define CROSSFADE_STEP_COUNT 12
+const float CROSSFADE_STEP = 1.0 / CROSSFADE_STEP_COUNT;
 
 typedef struct Zone {
   int idx_from;
@@ -17,63 +17,51 @@ typedef struct Zone {
   CRGB color;
 };
 
-inline uint8_t blend_uint8(uint8_t current, const uint8_t target, uint8_t amount) {
-  if (current == target) return;
-  if (current < target) {
-    delta = scale8_video(target - current, amount);
-    current += delta;
-  } else {
-    delta = scale8_video(current - target, amount);
-    current -= delta;
-  }
-  return current;
-}
-
-inline CRGB blend_colors(CRGB first, CRGB second, float ratio) {
-  return CRGB(
-    blend_uint8(first.red, second.red, ratio),
-    blend_uint8(first.green, second.green, ratio),
-    blend_uint8(first.blue, second.blue, ratio)
-  );
-}
-
-class CrossfadeEffect : public Effect {
+class CrossfadeEffect: public Effect {
 public:
   void draw() {
-    idx++;
-    progress = CROSSFADE_STEP * idx;
+    progress = CROSSFADE_STEP * (float)step;
     for (int i = 0; i < zones_count; i++) {
       drawZone(i, progress);
     }
     if (Light.brightness != target_brightness) {
-      Light.brightness = blend_uint8(start_brightness, target_brightness, progress);
+      Light.brightness = blend_values(start_brightness, target_brightness, progress);
     }
+  }
 
-    Light.apply();
-    if (idx == CROSSFADE_STEPS_COUNT) {
-      current_effect = 0;
-    } else {
-      delay(5);
-    }
+  void prepare () {
+    step = 1;
+  }
+
+  uint8_t stepCount() {
+    return CROSSFADE_STEP_COUNT;
+  }
+
+  uint8_t stepDelay() {
+    return 4;
   }
 
   uint8_t target_brightness;
   uint8_t start_brightness;
   uint8_t zones_count;
   Zone zones[ZONES_MAX_COUNT];
+  bool is_zones_inverted;
 
 private:
-  void drawZone(uint8_t zone_idx, uint8_t ratio) {
+  void drawZone(uint8_t zone_idx, float ratio) {
     if (zones[zone_idx].target_color == zones[zone_idx].color) {
       return;
     }
-    zones[zone_idx].color = blend_colors(
+    zones[zone_idx].color = blend_rgb(
       zones[zone_idx].previous_color,
       zones[zone_idx].target_color,
       ratio
     );
-    for (int i = zones[zone_idx].idx_from; i < zones[zone_idx].idx_to; i++) {
+    for (uint8_t i = zones[zone_idx].idx_from; i < zones[zone_idx].idx_to; i++) {
       Light.setLED(i, zones[zone_idx].color);
     }
+    // for (int i = zones[zone_idx].idx_from; i < zones[zone_idx].idx_to; i++) {
+    //     Light.setLED(i, zones[zone_idx].color);
+    //   }
   };
 };
