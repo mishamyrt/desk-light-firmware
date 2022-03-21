@@ -13,8 +13,8 @@ bool handle_set_color_zones(uint8_t *message, uint8_t message_length) {
   uint8_t zone_offset;
   for (int i = 0; i < Crossfade.zones_count; i++) {
     zone_offset = (i * 2) + 3;
-    Crossfade.zones[i].idx_from = message[zone_offset];
-    Crossfade.zones[i].idx_to = message[zone_offset+1];
+    Crossfade.zones[i].from = message[zone_offset];
+    Crossfade.zones[i].to = message[zone_offset+1];
   }
   return true;
 }

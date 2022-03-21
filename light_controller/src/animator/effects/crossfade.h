@@ -10,8 +10,8 @@
 const float CROSSFADE_STEP = 1.0 / CROSSFADE_STEP_COUNT;
 
 typedef struct Zone {
-  int idx_from;
-  int idx_to;
+  uint8_t from;
+  uint8_t to;
   CRGB target_color;
   CRGB previous_color;
   CRGB color;
@@ -57,11 +57,10 @@ private:
       zones[zone_idx].target_color,
       ratio
     );
-    for (uint8_t i = zones[zone_idx].idx_from; i < zones[zone_idx].idx_to; i++) {
-      Light.setLED(i, zones[zone_idx].color);
-    }
-    // for (int i = zones[zone_idx].idx_from; i < zones[zone_idx].idx_to; i++) {
-    //     Light.setLED(i, zones[zone_idx].color);
-    //   }
+    Light.setLEDs(
+      zones[zone_idx].color,
+      zones[zone_idx].from,
+      zones[zone_idx].to
+    );
   };
 };
