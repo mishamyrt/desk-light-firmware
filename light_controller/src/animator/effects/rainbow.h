@@ -2,7 +2,7 @@
 
 #include "Arduino.h"
 #include "FastLED.h"
-#include "common.h"
+#include "../effects_common.h"
 #include "../../light/light.h"
 
 class RainbowEffect: public Effect {

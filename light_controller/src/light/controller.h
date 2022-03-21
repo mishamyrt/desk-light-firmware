@@ -30,11 +30,15 @@ class LightController {
       }
     }
 
+    void setBrightness(uint8_t new_brightness) {
+      brightness = new_brightness;
+      LEDS.setBrightness(brightness);
+    }
+
     /// Applies current LED array status and brightness
     void apply() {
-      LEDS.setBrightness(brightness);
       LEDS.show();
-    };
+    }
 
     uint8_t brightness;
 

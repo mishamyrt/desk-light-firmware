@@ -24,6 +24,9 @@ inline CRGB blend_rgb(CRGB first, CRGB second, float ratio) {
   );
 }
 
+// Useful for many effects
+#define LED_CENTER LED_COUNT / 2
+
 extern float progress;
 extern uint8_t step;
 extern uint8_t delta;

@@ -2,11 +2,11 @@
 
 #include "Arduino.h"
 #include "FastLED.h"
-#include "common.h"
+#include "../effects_common.h"
 #include "../../light/light.h"
 
 #define ZONES_MAX_COUNT 24
-#define CROSSFADE_STEP_COUNT 12
+#define CROSSFADE_STEP_COUNT 20
 const float CROSSFADE_STEP = 1.0 / CROSSFADE_STEP_COUNT;
 
 typedef struct Zone {
@@ -25,7 +25,9 @@ public:
       drawZone(i, progress);
     }
     if (Light.brightness != target_brightness) {
-      Light.brightness = blend_values(start_brightness, target_brightness, progress);
+      Light.setBrightness(
+        blend_values(start_brightness, target_brightness, progress)
+      );
     }
   }
 
