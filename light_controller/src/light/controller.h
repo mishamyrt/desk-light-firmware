@@ -28,6 +28,7 @@ class LightController {
     };
     // void setZoneLEDs(CRGB color);
     void apply() {
+      LEDS.setBrightness(brightness);
       LEDS.show();
     };
 
