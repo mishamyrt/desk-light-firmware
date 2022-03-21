@@ -29,6 +29,22 @@ public:
     }
   }
 
+  void resetZones() {
+    zones[0].from = 0;
+    zones[0].to = LED_COUNT;
+    zones_count = 1;
+  }
+
+  void setNextColor(uint8_t zone_idx, CRGB new_color) {
+    zones[zone_idx].target_color = new_color;
+    zones[zone_idx].previous_color = zones[zone_idx].color;
+  }
+
+  void setNextBrightness(uint8_t new_brightness) {
+    target_brightness = new_brightness;
+    start_brightness = Light.brightness;
+  }
+
   void prepare () {
     step = 1;
   }
@@ -41,8 +57,6 @@ public:
     return 4;
   }
 
-  uint8_t target_brightness;
-  uint8_t start_brightness;
   uint8_t zones_count;
   Zone zones[ZONES_MAX_COUNT];
   bool is_zones_inverted;
@@ -62,5 +76,7 @@ private:
       zones[zone_idx].from,
       zones[zone_idx].to
     );
-  };
+  }
+  uint8_t target_brightness;
+  uint8_t start_brightness;
 };

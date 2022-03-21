@@ -24,17 +24,15 @@ bool handle_set_color(uint8_t *message, uint8_t message_length) {
   if (message_length < 5) {
     return false;
   }
-  Crossfade.target_brightness = message[1];
-  Crossfade.start_brightness = Light.brightness;
+  Crossfade.setNextBrightness(message[1]);
   uint8_t color_offset;
   for (int i = 0; i < Crossfade.zones_count; i++) {
     color_offset = (i * 3) + 2;
-    Crossfade.zones[i].target_color = CRGB(
+    Crossfade.setNextColor(i, CRGB(
       message[color_offset],
       message[color_offset + 1],
       message[color_offset + 2]
-    );
-    Crossfade.zones[i].previous_color = Crossfade.zones[i].color;
+    ));
   }
   Animator.startEffect(Crossfade);
   return true;
