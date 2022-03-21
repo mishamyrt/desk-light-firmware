@@ -16,6 +16,13 @@ class LightController {
       apply();
     }
 
+    /// Mirrors into the second half of the strip what is in the first half
+    void mirrorLEDs() {
+      for (uint8_t i = 0; i < (LED_COUNT / 2); i++) {
+        leds[LED_COUNT - i] = leds[i];
+      }
+    }
+
     void setLED(uint8_t idx, CRGB color) {
       leds[idx] = color;
     }
@@ -41,7 +48,5 @@ class LightController {
     }
 
     uint8_t brightness;
-
-  private:
     struct CRGB leds[LED_COUNT];
 };
