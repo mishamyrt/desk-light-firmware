@@ -136,8 +136,8 @@ private:
   uint8_t message_buffer[INPUT_BUFFER_SIZE];
   uint8_t message_length;
   enum {
-    CODE_SUCCESS = 0,
-    CODE_ERROR = 1
+    CODE_SUCCESS = 0xEE,
+    CODE_ERROR = 0xFF
   };
 };
 
