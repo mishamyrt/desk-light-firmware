@@ -10,19 +10,16 @@ FQBN="arduino:avr:nano:cpu=atmega328old"
 FIRMWARE_NAME="$(basename $FIRMWARE_PATH)"
 
 # Action
-echo "Creating temporary directory"
+echo "Preparing"
 TEMP_DIR="$(ssh $SSH_HOST mktemp -d)"
 REMOTE_FIRMWARE_PATH="$TEMP_DIR/$FIRMWARE_NAME"
-echo "Sending firmware"
 scp "$FIRMWARE_PATH" "$SSH_HOST:$REMOTE_FIRMWARE_PATH"
 ssh $SSH_HOST "
-echo 'Stopping server'
 sudo service light-server stop
 echo 'Flashing firmware'
 arduino-cli upload -t -i $REMOTE_FIRMWARE_PATH -p $DEVICE_PATH -b $FQBN
-echo 'Starting server'
-sudo service light-server start
 echo 'Cleaning up'
+sudo service light-server start
 rm -rf $TEMP_DIR
 echo 'Done ☺️'
 "
