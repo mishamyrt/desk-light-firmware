@@ -5,12 +5,9 @@
 
 bool handle_start_effect(uint8_t *message, uint8_t message_length) {
   switch (message[1]) {
-  case EFFECT_COMMAND_RAINBOW:
-    Animator.startEffect(Rainbow);
-    return true;
-    break;
-    default:
-    return false;
-    break;
+    case EFFECT_COMMAND_RAINBOW:
+      Animator.startEffect(Rainbow);
+      return true;
   }
+  return false;
 }
