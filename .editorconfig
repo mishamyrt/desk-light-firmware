@@ -12,5 +12,5 @@ insert_final_newline = true
 [Makefile]
 indent_style = tab
 
-[*.{c,cpp,ino,h}]
+[*.{c,cpp,ino,h,md}]
 indent_size = 2
