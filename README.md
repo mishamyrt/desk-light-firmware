@@ -11,30 +11,14 @@ make compile
 make flash
 ```
 
-## Сonnection
+## Communication
 
-The serial port is used to communicate with the control device. The connection speed is 9600 baud.
+For communication, the [Dap](./light_controller/src/dap/) is used.
 
 ## Commands
 
-The unit receives commands over the serial port as a sequence of integers. The first value is the command, followed by the arguments. The available commands are listed in the [commands.h](src/api/commands.h) file.  Some of the commands can change the read mode and after the command is executed the reception of commands will stop until a special command is received.
+The available commands and their codes are described in the file [commands.h](./light_controller/src/commands/commands.h).
 
-### Examples
+## Effects
 
-Enable light strip.
-
-```
-0x1
-```
-
-Set color to white and brightness to 50%.
-
-```
-0x3 0xFF 0xFF 0xFF 0x80
-```
-
-Set color to red and brightness to 100%.
-
-```
-0x3 0xFF 0x0 0x0 0xFF
-```
+The available effects and their codes are described in the file [effects.h](./light_controller/src/animator/effects.h).
