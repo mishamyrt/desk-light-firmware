@@ -1,8 +1,5 @@
 .PHONY: compile
 
-# serial=gyverUart
-# GyverCore:avr:nano
-
 DEVICE_PATH = /dev/tty.wchusbserial11440
 OUT_PATH = dist
 SRC_PATH = light_controller
