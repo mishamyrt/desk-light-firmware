@@ -20,4 +20,5 @@ flash-remote:
 	sh -c scripts/flash-remote.sh
 setup:
 	$(AC) core update-index
+	$(AC) core install GyverCore:avr
 	$(AC) lib install FastLED
