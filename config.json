@@ -1,0 +1,10 @@
+{
+  "board_manager": {
+    "additional_urls": [
+      "https://alexgyver.github.io/package_GyverCore_index.json"
+    ]
+  },
+  "directories": {
+    "user": "./.arduino-downloads"
+  }
+}
