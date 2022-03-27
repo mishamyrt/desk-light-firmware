@@ -21,4 +21,5 @@ flash-remote:
 setup:
 	$(AC) core update-index
 	$(AC) core install GyverCore:avr
+	$(AC) core install arduino:avr
 	$(AC) lib install FastLED
