@@ -1,0 +1,16 @@
+name: Compile
+
+on: [push]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Install Arduino CLI
+      uses: arduino/setup-arduino-cli@v1
+    - name: Checkout
+      uses: actions/checkout@v2
+    - name: Install dependecies
+      run: make setup
+    - name: Compile
+      run: make compile
