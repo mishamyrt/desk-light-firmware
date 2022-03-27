@@ -1,9 +1,9 @@
-name: Compile
+name: Build
 
 on: [push]
 
 jobs:
-  test:
+  build:
     runs-on: ubuntu-latest
     steps:
     - name: Install Arduino CLI

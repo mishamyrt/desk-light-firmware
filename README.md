@@ -1,4 +1,4 @@
-# Desk Light Firmware [![Compile](https://github.com/mishamyrt/desk-light-firmware/actions/workflows/compile.yaml/badge.svg)](https://github.com/mishamyrt/desk-light-firmware/actions/workflows/compile.yaml)
+# Desk Light Firmware [![Build](https://github.com/mishamyrt/desk-light-firmware/actions/workflows/build.yaml/badge.svg)](https://github.com/mishamyrt/desk-light-firmware/actions/workflows/build.yaml)
 
 Firmware for Arduino Nano which implements smart strip functions controlled via USB. Used to light my desk.
 
