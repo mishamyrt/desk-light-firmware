@@ -3,7 +3,7 @@
 #include "../../animator/effects.h"
 
 bool handle_power_on(uint8_t *message, uint8_t message_length) {
-  if (message_length < 5) {
+  if (message_length < 4) {
     return false;
   }
   Crossfade.resetZones();

@@ -1,6 +1,6 @@
 .PHONY: compile
 
-DEVICE_PATH = /dev/tty.wchusbserial11440
+DEVICE_PATH = /dev/cu.usbserial-11220
 OUT_PATH = dist
 SRC_PATH = light_controller
 PROJECT_NAME = DeskLight

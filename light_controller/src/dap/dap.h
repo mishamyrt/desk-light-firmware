@@ -2,25 +2,29 @@
 
 #include "Arduino.h"
 #include "config.h"
+#include "SoftwareSerial.h"
 
 #define MESSAGE_HEADER_FIRST 0xFE
 #define MESSAGE_HEADER_SECOND 0xEF
 
+extern SoftwareSerial dSerial;
+
 /*
   Message structure:
-  0xFE 0xEF $N $D(N times) $checksum
+  0xFE 0xEF $N $D(N times)
  */
 
 class DapConnector {
 public:
   void connect() {
-    Serial.begin(BOUD_RATE);
-    Serial.setTimeout(INPUT_TIMEOUT);
+    pinMode(RX_PIN, INPUT);
+    pinMode(TX_PIN, OUTPUT);
+    dSerial.begin(BAUD_RATE);
     sendSuccess();
   }
 
   void handleInput() {
-    if (Serial.available() > 4) {
+    if (dSerial.available() > 3) {
       // Parse message
       if (!readMessage()) {
         sendError();
@@ -49,28 +53,16 @@ private:
   }
 
   void sendCode(uint8_t code) {
-    Serial.write(MESSAGE_HEADER_FIRST); // Header
-    Serial.write(MESSAGE_HEADER_SECOND);
-    Serial.write(1); // Length
-    Serial.write(code); // Payload
-    Serial.write(code); // Checksum. For single number messages will equal the code
-  }
-
-  uint8_t calculateChecksum() {
-    int checksum = 0;
-    for (uint8_t i = 0; i < message_length; i++) {
-      checksum += message_buffer[i];
-      if (checksum > 255) {
-        checksum -= 255;
-      }
-    }
-    return checksum;
+    dSerial.write(MESSAGE_HEADER_FIRST); // Header
+    dSerial.write(MESSAGE_HEADER_SECOND);
+    dSerial.write(1); // Length
+    dSerial.write(code); // Payload
   }
 
   /// Searches the message start sequence ([0xFE, 0xEF]) in the input buffer.
   bool findStartSequence() {
     while(true) {
-      current_value = Serial.read();
+      current_value = dSerial.read();
       if (current_value == MESSAGE_HEADER_SECOND && previous_value == MESSAGE_HEADER_FIRST) {
         return true;
       } else if (current_value == -1) {
@@ -86,7 +78,7 @@ private:
     if (!findStartSequence()) {
       return false;
     }
-    message_length = Serial.read();
+    message_length = dSerial.read();
     if (message_length > INPUT_BUFFER_SIZE || message_length <= 0) {
       return false;
     }
@@ -97,7 +89,7 @@ private:
   bool readBody() {
     index = 0;
     while (index < message_length) {
-      current_value = Serial.read();
+      current_value = dSerial.read();
       if (current_value == -1) {
         return false;
       }
@@ -107,23 +99,11 @@ private:
     return true;
   }
 
-  /// Reads the last byte of the message and checks that it contains the correct checksum
-  bool checkMessage() {
-    current_value = Serial.read();
-    if (current_value == -1 || calculateChecksum() != current_value) {
-      return false;
-    }
-    return true;
-  }
-
   bool readMessage() {
     if (!readHeader()) {
       return false;
     }
     if (!readBody()) {
-      return false;
-    }
-    if (!checkMessage()) {
       return false;
     }
     return true;
