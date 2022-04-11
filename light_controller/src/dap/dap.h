@@ -2,12 +2,9 @@
 
 #include "Arduino.h"
 #include "config.h"
-#include "SoftwareSerial.h"
 
 #define MESSAGE_HEADER_FIRST 0xFE
 #define MESSAGE_HEADER_SECOND 0xEF
-
-extern SoftwareSerial dSerial;
 
 /*
   Message structure:
@@ -17,14 +14,18 @@ extern SoftwareSerial dSerial;
 class DapConnector {
 public:
   void connect() {
-    pinMode(RX_PIN, INPUT);
-    pinMode(TX_PIN, OUTPUT);
-    dSerial.begin(BAUD_RATE);
+    Serial.begin(57600);
     sendSuccess();
   }
 
   void handleInput() {
-    if (dSerial.available() > 3) {
+    if (Serial.available() > 3) {
+      // It's half past one in the morning and I don't want to have to work out why a blinking diode fixes the whole protocol.
+      // It's working and it's good.
+      delay(10);
+      digitalWrite(LED_BUILTIN, LOW);
+      delay(10);
+      digitalWrite(LED_BUILTIN, HIGH);
       // Parse message
       if (!readMessage()) {
         sendError();
@@ -53,16 +54,16 @@ private:
   }
 
   void sendCode(uint8_t code) {
-    dSerial.write(MESSAGE_HEADER_FIRST); // Header
-    dSerial.write(MESSAGE_HEADER_SECOND);
-    dSerial.write(1); // Length
-    dSerial.write(code); // Payload
+    Serial.write(MESSAGE_HEADER_FIRST); // Header
+    Serial.write(MESSAGE_HEADER_SECOND);
+    Serial.write(1); // Length
+    Serial.write(code); // Payload
   }
 
   /// Searches the message start sequence ([0xFE, 0xEF]) in the input buffer.
   bool findStartSequence() {
     while(true) {
-      current_value = dSerial.read();
+      current_value = Serial.read();
       if (current_value == MESSAGE_HEADER_SECOND && previous_value == MESSAGE_HEADER_FIRST) {
         return true;
       } else if (current_value == -1) {
@@ -78,7 +79,7 @@ private:
     if (!findStartSequence()) {
       return false;
     }
-    message_length = dSerial.read();
+    message_length = Serial.read();
     if (message_length > INPUT_BUFFER_SIZE || message_length <= 0) {
       return false;
     }
@@ -89,7 +90,7 @@ private:
   bool readBody() {
     index = 0;
     while (index < message_length) {
-      current_value = dSerial.read();
+      current_value = Serial.read();
       if (current_value == -1) {
         return false;
       }

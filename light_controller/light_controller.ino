@@ -8,6 +8,7 @@ void setup() {
   Dap.registerHandler(handle_command);
   Light.initialize();
   Animator.initialize();
+  pinMode(LED_BUILTIN, OUTPUT);
 }
 
 void loop() {
