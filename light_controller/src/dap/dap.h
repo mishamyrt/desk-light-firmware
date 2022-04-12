@@ -20,8 +20,8 @@ public:
 
   void handleInput() {
     if (Serial.available() > 3) {
-      // It's half past one in the morning and I don't want to have to work out why a blinking diode fixes the whole protocol.
-      // It's working and it's good.
+      // It's half past one in the morning and I don't want to have to work out
+      // why a blinking diode fixes the whole protocol. It's working and it's good.
       delay(10);
       digitalWrite(LED_BUILTIN, LOW);
       delay(10);
