@@ -38,7 +38,7 @@ public:
   }
 
   void setNextTemperature(uint8_t zone_idx, uint8_t temperature) {
-    CRGB color = blend(Candle, DirectSunlight, temperature);
+    CRGB color = blend(DirectSunlight, Candle, temperature);
     setNextColor(zone_idx, color);
   }
 
