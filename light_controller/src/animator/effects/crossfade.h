@@ -38,12 +38,12 @@ public:
   }
 
   /// Set next color temperature
-  /// Temperature is set like progress between 2700 and 6500 K.
+  /// Temperature is set like progress between 2700K and 6500K.
   /// For example, if `temperature` argument is 130,
   /// then real temperature is 2700+((6500-2700)*(130/255))=4637 K
   void setNextTemperature(uint8_t zone_idx, uint8_t temperature) {
     // Lightstrip calibrated to be 6500 Kelvin on white.
-    // Blens with color, that gives about 2700 K.
+    // Blens with color, that gives about 2700K.
     CRGB color = blend(0xFFFFFF, 0xFF872B, temperature);
     setNextColor(zone_idx, color);
   }
