@@ -11,7 +11,7 @@ class LightController {
     void initialize() {
       LEDS
         .addLeds<WS2811, LED_DT, GRB>(leds, LED_COUNT)
-        .setCorrection(0xFF8C8C); // 255, 140, 140
+        .setCorrection(0xFF7A60); // 255, 122, 96
       setLEDs(CRGB::Black);
       apply();
     }
