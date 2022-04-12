@@ -37,3 +37,16 @@ bool handle_set_color(uint8_t *message, uint8_t message_length) {
   Animator.startEffect(Crossfade);
   return true;
 }
+
+// Format: [cmd, brightness, {temperature}]
+bool handle_set_temperature(uint8_t *message, uint8_t message_length) {
+  if (message_length < 3) {
+    return false;
+  }
+  Crossfade.setNextBrightness(message[1]);
+  for (int i = 0; i < Crossfade.zones_count; i++) {
+    Crossfade.setNextTemperature(i, message[i + 2]);
+  }
+  Animator.startEffect(Crossfade);
+  return true;
+}

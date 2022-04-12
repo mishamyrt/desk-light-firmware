@@ -15,4 +15,7 @@ bool handle_set_color(uint8_t *message, uint8_t message_length);
 bool handle_set_color_zones(uint8_t *message, uint8_t message_length);
 
 #define COMMAND_START_EFFECT 4
-bool handle_start_effect(uint8_t *message, uint8_t message_length) ;
+bool handle_start_effect(uint8_t *message, uint8_t message_length);
+
+#define COMMAND_SET_TEMPERATURE 5
+bool handle_set_temperature(uint8_t *message, uint8_t message_length);

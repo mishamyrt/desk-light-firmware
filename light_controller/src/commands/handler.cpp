@@ -13,6 +13,8 @@ bool handle_command(uint8_t *command, uint8_t command_length) {
       return handle_set_color_zones(command, command_length);
     case COMMAND_START_EFFECT:
       return handle_start_effect(command, command_length);
+    case COMMAND_SET_TEMPERATURE:
+      return handle_set_temperature(command, command_length);
     default:
       break;
   }

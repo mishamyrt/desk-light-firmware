@@ -37,6 +37,11 @@ public:
     zones_count = 1;
   }
 
+  void setNextTemperature(uint8_t zone_idx, uint8_t temperature) {
+    CRGB color = blend(Candle, DirectSunlight, temperature);
+    setNextColor(zone_idx, color);
+  }
+
   void setNextColor(uint8_t zone_idx, CRGB new_color) {
     zones[zone_idx].target_color = new_color;
     zones[zone_idx].previous_color = zones[zone_idx].color;
